@@ -1,5 +1,5 @@
 .weather-container {
-    background: #3949ab;
+    background: #4f6ac2;
     box-shadow: 2px 4px 16px rgba(0,0,0,0.5);
     height: 620px;
     width: 80%;
@@ -16,11 +16,12 @@
     text-align: center;
 }
 
-.weather-header div {
+.weather-header form {
     display: flex;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid rgb(25, 180, 51);
     width: 80%;
     margin: auto;
+    text-align: center;
 }
 
 .weather-header button {

@@ -4,6 +4,7 @@ import WeatherInfo from './WeatherInfo'
 
 const WeatherContainer = () => {
     const [searchQuery, setSearchQuery] = useState("")
+    const [ValidZip, setValidZip] = useState(true)
     const [weatherData, setWeahterData] = useState({
         temp: null,
         humidity: null,
@@ -11,9 +12,6 @@ const WeatherContainer = () => {
         city: null
     })
     
-    const [isValidZip, setIsValidZip] = useState(true)
-
-
 
     const updateSearchQuery = e => {
         let zip = e.target.value
@@ -23,9 +21,9 @@ const WeatherContainer = () => {
         let isValid = validateZip(zip)
 
         if (isValid || zip === '' || isValid.length === 5) {
-            setIsValidZip(true)
+            setValidZip(true)
         } else {
-            setIsValidZip(false)
+            setValidZip(false)
         }
         
     }
@@ -36,10 +34,11 @@ const WeatherContainer = () => {
     }
 
     const API_KEY = '594b5e9bf70f52f4ba1b83e1a7b1ee5b'
-    const getWeatherData = () => {
+    const getWeatherData = (e) => {
+        e.preventDefault()
 
-        if (!isValidZip || searchQuery === "") {
-            setIsValidZip(false)
+        if (!ValidZip || searchQuery === "") {
+            setValidZip(false)
             return
         }
 
@@ -56,21 +55,22 @@ const WeatherContainer = () => {
     const toFarenheit = temp => {
         return ((temp - 273.15) * (9.0 / 5.0) + 32).toFixed(0)
     }
+    
     return (
         <section className="weather-container">
             <header className="weather-header">
                 <h3>Weather</h3>
-                <div>
+                <form onSubmit={getWeatherData}>
                     <input 
                         className="search-input"
                         placeholder="zipcode" 
                         onChange={updateSearchQuery}
                         maxLength="5"
                     />
-                    <button className="material-icons" onClick={getWeatherData}>search</button>
-                </div>
+                    <button className="material-icons">search</button>
+                </form>
             </header>
-            <p className="error">{isValidZip ? "" : "Invalid Zipcode"}</p>
+            <p className="error">{ValidZip ? "" : "Invalid Zipcode"}</p>
             <section className="weather-info">
                 {weatherData.temp === null ? ( <p>No weahter to display<i className="material-icons">wb_sunny</i></p>) : <WeatherInfo data={weatherData} />}
             </section>

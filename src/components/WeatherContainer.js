@@ -72,7 +72,7 @@ const WeatherContainer = () => {
             </header>
             <p className="error">{ValidZip ? "" : "Invalid Zipcode"}</p>
             <section className="weather-info">
-                {weatherData.temp === null ? ( <p>No weahter to display<i className="material-icons">wb_sunny</i></p>) : <WeatherInfo data={weatherData} />}
+                {weatherData.temp === null ? ( <p>No weather to display<i className="material-icons">wb_sunny</i></p>) : <WeatherInfo data={weatherData} />}
             </section>
         </section>
     )
